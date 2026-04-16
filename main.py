@@ -1,3 +1,15 @@
+import random
+
+def roll_dice(num_dice, sides):
+    return [random.randint(1, sides) for _ in range(num_dice)]
+
+
+
+
+
+print(roll_dice(2, 6))
+
+
 print("Hello, new Warhammer RPG player!")
 print("This is a simple character sheet generator for the Warhammer RPG.")
 print("Please enter your character's name:")
@@ -71,7 +83,7 @@ print(f"Congratulations! You have created basics for your character:")
 print(f"Name: {character_name}")
 print(f"Race: {chosen_race}")
 print(f"Class: {chosen_class}")
-print(f"Profession: {chosen_profession}"
+print(f"Profession: {chosen_profession}")
       
 print("You can now proceed to fill in the rest of your character sheet with attributes, skills, and equipment.")
 
