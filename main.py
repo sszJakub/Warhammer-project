@@ -1,13 +1,105 @@
 import random
 
 def roll_dice(num_dice, sides):
-    return [random.randint(1, sides) for _ in range(num_dice)]
+    return sum([random.randint(1, sides) for _ in range(num_dice)])
+
+def generate_rolls_for_attributes():
+    return [roll_dice(2, 10) for _ in range(10)]
 
 
 
+    
 
 
-print(roll_dice(2, 6))
+
+base_attibutes = {
+    "Human": {
+        "Weapon Skill": 20,
+        "Ballistic Skill": 20,
+        "Strength": 20,
+        "Toughness": 20,
+        "Initiative": 20,
+        "Agility": 20,
+        "Dexterity": 20,
+        "Intelligence": 20,
+        "Willpower": 20,
+        "Fellowship": 20
+    },
+    "High Elf": {
+        "Weapon Skill": 30,
+        "Ballistic Skill": 30,
+        "Strength": 20,
+        "Toughness": 20,
+        "Initiative": 40,
+        "Agility": 30,
+        "Dexterity": 30,
+        "Intelligence": 30,
+        "Willpower": 30,
+        "Fellowship": 20
+    },
+    "Wood Elf": {
+        "Weapon Skill": 30,
+        "Ballistic Skill": 30,
+        "Strength": 20,
+        "Toughness": 20,
+        "Initiative": 30,
+        "Agility": 40,
+        "Dexterity": 30,
+        "Intelligence": 30,
+        "Willpower": 30,
+        "Fellowship": 20
+    }, 
+    "Dwarf": {
+        "Weapon Skill": 30,
+        "Ballistic Skill": 20,
+        "Strength": 20,
+        "Toughness": 30,
+        "Initiative": 20,
+        "Agility": 10,
+        "Dexterity": 30,
+        "Intelligence": 20,
+        "Willpower": 40,
+        "Fellowship": 10
+    },
+    "Halfling": {
+        "Weapon Skill": 10,
+        "Ballistic Skill": 30,
+        "Strength": 10,
+        "Toughness": 20,
+        "Initiative": 20,
+        "Agility": 20,
+        "Dexterity": 30,
+        "Intelligence": 20,
+        "Willpower": 30,
+        "Fellowship": 30
+    }
+    
+}
+
+def assign_stats(base_attributes, chosen_race):
+    rolls = generate_rolls_for_attributes()
+    assigned_stats = {}
+    
+    print ("\nYour rolls:")
+    for i, roll in enumerate(rolls, start=1):
+        print(f"{i}: {roll}")
+    
+    for stat, base in base_attibutes[chosen_race].items():
+        while True:
+            print(f"\nAssign a roll to (choose list index): {stat} (base {base})")
+            choice = input("> ")
+
+            if choice.isdigit():
+                index = int(choice) - 1
+
+                if 0 <= index < len(rolls):
+                    sellected_roll = rolls.pop(index)
+                    assigned_stats[stat] = base + sellected_roll
+                    print(f"{stat} = {base} + {sellected_roll}")
+                    break
+            print("Invalid choice. Please select a valid roll number.")
+    return assigned_stats
+
 
 
 print("Hello, new Warhammer RPG player!")
@@ -86,5 +178,14 @@ print(f"Class: {chosen_class}")
 print(f"Profession: {chosen_profession}")
       
 print("You can now proceed to fill in the rest of your character sheet with attributes, skills, and equipment.")
+for stat, value in base_attibutes[chosen_race].items():
+    print(f"{stat}: {value}")
 
+print("Now, let's roll for your character's attributes. You will roll 2d10 for each attribute and add the base value")
+final_stats = assign_stats(base_attibutes, chosen_race)
+
+
+print("\nYour final attributes are:")
+for stat, value in final_stats.items():
+    print(f"{stat}: {value}")
 
