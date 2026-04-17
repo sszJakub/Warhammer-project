@@ -87,15 +87,17 @@ def assign_stats(base_attributes, chosen_race):
     for stat, base in base_attibutes[chosen_race].items():
         while True:
             print(f"\nAssign a roll to (choose list index): {stat} (base {base})")
+            print(f"Available rolls: {rolls}")
             choice = input("> ")
-
+            
             if choice.isdigit():
-                index = int(choice) - 1
+                value = int(choice)
 
-                if 0 <= index < len(rolls):
-                    sellected_roll = rolls.pop(index)
-                    assigned_stats[stat] = base + sellected_roll
-                    print(f"{stat} = {base} + {sellected_roll}")
+                if value in rolls:
+                    index = rolls.index(value)
+                    selected_roll = rolls.pop(index)
+                    assigned_stats[stat] = base + selected_roll
+                    print(f"{stat} = {base} + {selected_roll}")
                     break
             print("Invalid choice. Please select a valid roll number.")
     return assigned_stats
